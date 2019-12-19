@@ -4,10 +4,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="d-flex justify-content-center">
- <form action="." method="post">
-    {% csrf_token %}
-    {% crispy form %}
- </form>
+<div class="container">
+ <div class="row align-items-center">
+     <div class="col-md"></div>
+     <div class="col-md d-flex justify-content-center form-container">
+         <form action="." method="post">
+          {% csrf_token %}
+          {% crispy form %}
+         </form>
+     </div>
+     </div>
 </div>
 {% endblock %}

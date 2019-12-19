@@ -1,28 +1,27 @@
 from django.shortcuts import render, redirect
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.views.generic import (CreateView, FormView)
+
 from .models import Adresse
 from .forms import AddressForm
 
+
 # Create your views here.
-def home(request):
-    if request.method == 'POST':
-        form = AddressForm(data=request.POST)
-        if form.is_valid():
-            nom = form.cleaned_data['nom']
-            prenom = form.cleaned_data['prenom']
-            genre = form.cleaned_data['genre']
-            email = form.cleaned_data['email']
-            dob = form.cleaned_data['dob']
-            pays = form.cleaned_data['pays']
-            region = form.cleaned_data['region']
-            ville = form.cleaned_data['ville']
-            profession = form.cleaned_data['profession']
-            tel = form.cleaned_data['tel']
-            form.save()
-            return redirect('thanks')
-    else:
-        form = AddressForm()
-    return render(request, 'core/home.html', locals())
+class NewAdresseView(SuccessMessageMixin, CreateView):
+    model = Adresse
+    form_class = AddressForm
+    success_url = reverse_lazy('core:thanks')
+    template_name = 'core/home.html'
+    success_message = "Thanks your data was saved"
 
 def thanks(request):
-
     return render(request, 'core/thanks.html')
+
+
+def privacy_policy(request):
+    return render(request, 'core/privacy_policy.html')
+
+
+def tos(request):
+    return render(request, 'core/tos.html')
