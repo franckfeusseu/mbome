@@ -5,6 +5,7 @@ html,body{
 body {
   display: flex;
   flex-direction: column;
+  background-image: url('img1.jpg');
   background-color: grey ;
 }
 .form-container {
