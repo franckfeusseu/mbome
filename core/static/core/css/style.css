@@ -17,6 +17,9 @@ body {
   min-height: 100vh;
   flex: 1 0 auto;
 }
+.asteriskField {
+  display: none;
+}
 #footer{
   flex-shrink: 0;
   background-color: blue;

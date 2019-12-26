@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, FormView)
+from django.http import JsonResponse
 
 from .models import Adresse
 from .forms import AddressForm
@@ -17,6 +18,15 @@ class NewAdresseView(SuccessMessageMixin, CreateView):
 
 def thanks(request):
     return render(request, 'core/thanks.html')
+
+#def validate_nom(request):
+#   nom = request.GET.get('nom', None)
+#   data = {
+#      'is_taken': Adresse.objects.filter(nom_iexact=nom).exists()
+#    }
+#    if data['is_taken']:
+#        data['error_message'] = 'A user with this username already exits.'
+#    return JsonResponse(data)
 
 
 def privacy_policy(request):

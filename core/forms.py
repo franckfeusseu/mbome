@@ -18,7 +18,16 @@ class AddressForm(ModelForm):
         required=True,
         error_messages={'required': 'please tick the box'}
     )
-    dob = forms.DateField(required=True, validators=[validate_age])
+    dob = forms.DateField(
+        required=True,
+        validators=[validate_age],
+        input_formats=['%d/%m/%Y'],
+        widget=forms.DateInput(attrs={
+            'class': 'datepicker-input',
+            'id': 'datepicker',
+            'data-target': '#datepicker1',
+        })
+    )
     tel = forms.CharField(required=True, validators=[validate_telephone])
 
     def __init__(self, *args, **kwargs):
