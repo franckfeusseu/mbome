@@ -3,13 +3,43 @@ version: '3'
 services:
   db:
     image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - db_network
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py makemigrations && python manage.py migrate && gunicorn --bind 0.0.0.0:8000 mbome.wsgi"
     volumes:
       - .:/code
-    ports:
-      - "8000:8000"
+      - static:/static #share the same volume as ngnix container
+    expose:
+      - 8000
     depends_on:
       - db
+    networks:
+      - nginx_network
+      - db_network
+  webserver:
+    image: nginx
+    ports:
+      - "1337:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/static #share the same volume as django app container
+    depends_on:
+      - web
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  db_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  static:
 

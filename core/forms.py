@@ -7,6 +7,7 @@ from django.forms import ModelForm
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.bootstrap import AppendedText
 
 from .models import Adresse
 from .validators import validate_age, validate_telephone
@@ -23,6 +24,7 @@ class AddressForm(ModelForm):
         validators=[validate_age],
         input_formats=['%d/%m/%Y'],
         widget=forms.DateInput(attrs={
+            'placeholder': 'DD/MM/YYYY',
             'class': 'datepicker-input',
             'id': 'datepicker',
             'data-target': '#datepicker1',
@@ -44,7 +46,7 @@ class AddressForm(ModelForm):
                 Column('dob', css_class='form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
-            'email',
+            AppendedText('email', '@'),
             Row(
                 Column('pays', css_class='form-group col-md-6 mb-0'),
                 Column('region', css_class='form-group col-md-6 mb-0'),
