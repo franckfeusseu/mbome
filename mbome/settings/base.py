@@ -29,8 +29,8 @@ BASE_DIR = root()
 SECRET_KEY = 'dml%$_zbjko&zho(s3%yb*&h3_ubmw9oe4p4^sl13_4jaf$@@z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
